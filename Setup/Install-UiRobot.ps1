@@ -147,7 +147,7 @@ function Main {
         Try {
 
             #Provision Robot Type to Orchestrator
-            if ($RobotType -eq "Unattended" -or "Development") {
+            if ($RobotType -eq "Unattended" -or $RobotType -eq "Development") {
                 $dataRobot = @{
                     MachineName       = $env:computername
                     Username          = $adminUsername
@@ -228,7 +228,7 @@ function Main {
 
             }
 
-            if ((Get-Service UiRobotSvc | Select Status) -eq "Running") {
+            if ((Get-Service UiRobotSvc).Status -eq "Running") {
 
                 # Connect Robot to Orchestrator with Robot key
                 $connectRobot = & $robotExePath --connect -url  $orchestratorUrl -key $key
